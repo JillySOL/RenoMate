@@ -12,6 +12,7 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import Badge from "@/components/ui-custom/Badge";
+import MetaTags from "@/components/layout/MetaTags";
 
 // Lazy load components that are not immediately visible
 const RoomSelector = lazy(() => import("@/components/home/RoomSelector"));
@@ -22,7 +23,7 @@ const EASY_WINS = [
   { 
     title: "Paint a Room", 
     icon: <PaintBucket className="h-6 w-6 text-budget-accent" />,
-    value: "Save $2,000+",
+    value: "Value +$3,000",
     tooltip: "Transform your space with modern paint techniques that mimic expensive tile"
   },
   { 
@@ -42,6 +43,7 @@ const EASY_WINS = [
 const Index = () => {
   return (
     <PageContainer className="flex flex-col justify-between min-h-screen" bg="beige">
+      <MetaTags />
       <div className="space-y-16">
         <div className="py-6">
           <Logo size="lg" />
@@ -88,20 +90,20 @@ const Index = () => {
 
         <div className="mb-16">
           <h2 className="text-xl font-semibold mb-8">💸 Easy Wins That Add Real Value</h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-3 gap-4">
             {EASY_WINS.map((hack, i) => (
               <TooltipProvider key={i}>
                 <Tooltip>
                   <TooltipTrigger asChild>
-                    <div className="group flex flex-col items-center p-5 bg-white rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-all cursor-pointer">
-                      <div className="w-14 h-14 rounded-full bg-budget-teal/10 flex items-center justify-center mb-4 group-hover:bg-budget-teal/20 transition-colors">
+                    <div className="group flex flex-col items-center p-3 sm:p-5 bg-white rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md transition-all cursor-pointer">
+                      <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-budget-teal/10 flex items-center justify-center mb-2 sm:mb-4 group-hover:bg-budget-teal/20 transition-colors">
                         {hack.icon}
                       </div>
-                      <span className="text-sm font-medium text-budget-dark mb-3 min-h-[40px] flex items-center justify-center">
+                      <span className="text-xs sm:text-sm font-medium text-budget-dark mb-2 sm:mb-3 min-h-[40px] flex items-center justify-center">
                         {hack.title}
                       </span>
                       <Badge>{hack.value}</Badge>
-                      <div className="mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
+                      <div className="mt-2 sm:mt-3 opacity-0 group-hover:opacity-100 transition-opacity">
                         <Info className="h-4 w-4 text-budget-neutral" />
                       </div>
                     </div>

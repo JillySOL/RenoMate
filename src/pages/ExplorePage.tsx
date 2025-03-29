@@ -4,10 +4,15 @@ import { IMAGES } from "@/constants/images";
 import EnhancedBeforeAfter from "@/components/ui-custom/EnhancedBeforeAfter.tsx";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
+import MetaTags from "@/components/layout/MetaTags";
 
 const ExplorePage = () => {
   return (
     <PageContainer>
+      <MetaTags 
+        title="Explore Examples - RenoMate" 
+        description="Browse real room transformation examples and get inspired for your next renovation project."
+      />
       <div className="max-w-3xl mx-auto">
         <div className="flex items-center mb-8">
           <Link to="/">

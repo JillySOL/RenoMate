@@ -6,19 +6,9 @@ import { ArrowLeft, ArrowRight } from "lucide-react";
 import ImageUploader from "@/components/ui-custom/ImageUploader";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import BudgetSlider from "@/components/ui-custom/BudgetSlider";
 import StyleChip from "@/components/ui-custom/StyleChip";
 import FlipTypeSelector from "@/components/ui-custom/FlipTypeSelector";
-
-const ROOM_TYPES = [
-  { value: "living-room", label: "Living Room" },
-  { value: "bedroom", label: "Bedroom" },
-  { value: "kitchen", label: "Kitchen" },
-  { value: "bathroom", label: "Bathroom" },
-  { value: "dining-room", label: "Dining Room" },
-  { value: "office", label: "Home Office" },
-];
+import MetaTags from "@/components/layout/MetaTags";
 
 const STYLE_OPTIONS = [
   { id: "minimalist", label: "Minimalist" },
@@ -33,19 +23,29 @@ const STYLE_OPTIONS = [
 
 const FLIP_TYPES = [
   {
-    id: "budget",
-    name: "Budget Flip",
-    description: "Affordable makeover using clever DIY hacks (under $500)",
-  },
-  {
-    id: "full",
-    name: "Full Renovation",
-    description: "Complete room transformation with furniture changes",
+    id: "redecorate",
+    name: "Redecorate",
+    description: "No renovation, just refresh the look with new colors, accessories, and styling",
   },
   {
     id: "diy",
     name: "DIY Only",
     description: "Focus on DIY projects, no major changes or new furniture",
+  },
+  {
+    id: "reshuffle",
+    name: "Reshuffle Layout",
+    description: "Optimize room layout for better feng shui and flow",
+  },
+  {
+    id: "budget",
+    name: "Budget Flip",
+    description: "Professional makeover without structural changes (under $5,000)",
+  },
+  {
+    id: "full",
+    name: "Full Renovation",
+    description: "Complete room transformation with structural changes and new furniture",
   },
 ];
 
@@ -54,11 +54,9 @@ const NewProjectPage = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [projectData, setProjectData] = useState({
     name: "",
-    roomType: "",
     image: null as File | null,
-    budget: 500,
     style: "minimalist",
-    flipType: "budget",
+    flipType: "redecorate",
   });
 
   const handleImageSelect = (file: File) => {
@@ -66,7 +64,7 @@ const NewProjectPage = () => {
   };
 
   const handleNextStep = () => {
-    if (currentStep < 4) {
+    if (currentStep < 3) {
       setCurrentStep(currentStep + 1);
     } else {
       // Submit and create project
@@ -84,12 +82,13 @@ const NewProjectPage = () => {
 
   const isNextDisabled = () => {
     if (currentStep === 1 && !projectData.image) return true;
-    if (currentStep === 2 && (!projectData.name || !projectData.roomType)) return true;
+    if (currentStep === 2 && !projectData.name) return true;
     return false;
   };
 
   return (
     <PageContainer>
+      <MetaTags title="New Project - RenoMate" />
       <div className="flex items-center mb-6">
         <Button className="mr-2 hover:bg-accent hover:text-accent-foreground h-10 w-10" onClick={handlePreviousStep}>
           <ArrowLeft className="h-4 w-4" />
@@ -98,7 +97,7 @@ const NewProjectPage = () => {
       </div>
       
       <div className="flex justify-between mb-6">
-        {[1, 2, 3, 4].map((step) => (
+        {[1, 2, 3].map((step) => (
           <div 
             key={step}
             className={`h-1 flex-1 mx-0.5 rounded-full ${
@@ -123,9 +122,9 @@ const NewProjectPage = () => {
       {currentStep === 2 && (
         <div className="space-y-6 animate-fade-in">
           <div>
-            <h2 className="text-lg font-medium mb-2">Room Details</h2>
+            <h2 className="text-lg font-medium mb-2">Project Details</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Tell us more about the room you want to transform
+              Tell us more about your project
             </p>
             
             <div className="space-y-4">
@@ -138,42 +137,6 @@ const NewProjectPage = () => {
                   onChange={(e) => setProjectData({ ...projectData, name: e.target.value })}
                 />
               </div>
-              
-              <div className="space-y-2">
-                <Label htmlFor="room-type">Room Type</Label>
-                <Select
-                  value={projectData.roomType}
-                  onValueChange={(value) => setProjectData({ ...projectData, roomType: value })}
-                >
-                  <SelectTrigger id="room-type">
-                    <SelectValue placeholder="Select room type" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    {ROOM_TYPES.map((type) => (
-                      <SelectItem key={type.value} value={type.value}>
-                        {type.label}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-      
-      {currentStep === 3 && (
-        <div className="space-y-6 animate-fade-in">
-          <div>
-            <h2 className="text-lg font-medium mb-2">Budget & Style</h2>
-            <p className="text-sm text-muted-foreground mb-4">
-              Set your budget limit and preferred design style
-            </p>
-            
-            <div className="space-y-6">
-              <BudgetSlider
-                onChange={(value) => setProjectData({ ...projectData, budget: value[0] })}
-              />
               
               <div className="space-y-2">
                 <Label>Design Style</Label>
@@ -193,19 +156,21 @@ const NewProjectPage = () => {
         </div>
       )}
       
-      {currentStep === 4 && (
+      {currentStep === 3 && (
         <div className="space-y-6 animate-fade-in">
           <div>
-            <h2 className="text-lg font-medium mb-2">Flip Type</h2>
+            <h2 className="text-lg font-medium mb-2">Choose Your Approach</h2>
             <p className="text-sm text-muted-foreground mb-4">
-              Choose what kind of transformation you're looking for
+              Select how you want to transform your space
             </p>
             
-            <FlipTypeSelector
-              types={FLIP_TYPES}
-              selectedTypeId={projectData.flipType}
-              onSelect={(typeId) => setProjectData({ ...projectData, flipType: typeId })}
-            />
+            <div className="space-y-6">
+              <FlipTypeSelector
+                types={FLIP_TYPES}
+                selectedTypeId={projectData.flipType}
+                onSelect={(typeId) => setProjectData({ ...projectData, flipType: typeId })}
+              />
+            </div>
           </div>
         </div>
       )}
@@ -216,7 +181,7 @@ const NewProjectPage = () => {
           onClick={handleNextStep}
           disabled={isNextDisabled()}
         >
-          {currentStep < 4 ? "Continue" : "Generate Designs"}
+          {currentStep < 3 ? "Continue" : "Generate Designs"}
           <ArrowRight className="h-4 w-4" />
         </Button>
       </div>
