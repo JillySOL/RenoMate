@@ -10,11 +10,12 @@ interface MetaTagsProps {
 const MetaTags = ({
   title = "RenoMate - AI-Powered Room Design",
   description = "Transform your space with AI-powered room designs. Get personalized renovation ideas that fit your budget.",
-  image = "/og-image.png",
+  image = "/og-image.svg",
   url = "https://renomate.com"
 }: MetaTagsProps) => {
   const fullTitle = `${title} | RenoMate`;
   const fullDescription = `${description} Try our AI-powered room design tool for free!`;
+  const fullImageUrl = `${url}${image}`;
 
   return (
     <Helmet>
@@ -26,15 +27,19 @@ const MetaTags = ({
       <meta property="og:url" content={url} />
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={fullDescription} />
-      <meta property="og:image" content={image} />
+      <meta property="og:image" content={fullImageUrl} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
       <meta property="og:site_name" content="RenoMate" />
       
       {/* Twitter */}
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={url} />
-      <meta property="twitter:title" content={fullTitle} />
-      <meta property="twitter:description" content={fullDescription} />
-      <meta property="twitter:image" content={image} />
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={url} />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={fullDescription} />
+      <meta name="twitter:image" content={fullImageUrl} />
+      <meta name="twitter:image:width" content="1200" />
+      <meta name="twitter:image:height" content="630" />
       
       {/* Additional Meta Tags */}
       <meta name="viewport" content="width=device-width, initial-scale=1.0" />

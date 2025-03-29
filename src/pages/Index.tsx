@@ -27,7 +27,7 @@ const EASY_WINS = [
     tooltip: "Transform your space with modern paint techniques that mimic expensive tile"
   },
   { 
-    title: "Stick-on Splashback", 
+    title: "Update Blinds", 
     icon: <Hammer className="h-6 w-6 text-budget-accent" />,
     value: "Under $200",
     tooltip: "Easy-to-apply adhesive panels that look like real tile"
@@ -143,7 +143,7 @@ const Index = () => {
                             </TooltipContent>
                           </Tooltip>
                         </TooltipProvider>
-                        <Badge variant="warning">1 free flip left!</Badge>
+                        <Badge variant="warning">1 suggestion left!</Badge>
                       </div>
                     </div>
                     <div className="flex items-center gap-3 mb-3">
