@@ -10,7 +10,7 @@ interface MetaTagsProps {
 const MetaTags = ({
   title = "RenoMate - AI-Powered Room Design",
   description = "Transform your space with AI-powered room designs. Get personalized renovation ideas that fit your budget.",
-  image = "/og-image.svg",
+  image = "/og-image.png",
   url = "https://renomate.com"
 }: MetaTagsProps) => {
   const fullTitle = `${title} | RenoMate`;
