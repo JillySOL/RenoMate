@@ -2,12 +2,21 @@ import { Link } from "react-router-dom";
 import PageContainer from "@/components/layout/PageContainer";
 import { IMAGES } from "@/constants/images";
 import EnhancedBeforeAfter from "@/components/ui-custom/EnhancedBeforeAfter.tsx";
+import { Button } from "@/components/ui/button";
+import { ArrowLeft } from "lucide-react";
 
 const ExplorePage = () => {
   return (
     <PageContainer>
       <div className="max-w-3xl mx-auto">
-        <h1 className="text-2xl font-semibold mb-8">Explore Examples</h1>
+        <div className="flex items-center mb-8">
+          <Link to="/">
+            <Button className="mr-2 hover:bg-accent hover:text-accent-foreground h-10 w-10">
+              <ArrowLeft className="h-4 w-4" />
+            </Button>
+          </Link>
+          <h1 className="text-2xl font-semibold">Explore Examples</h1>
+        </div>
         
         <div className="mb-8">
           <div className="flex items-center justify-between mb-6">

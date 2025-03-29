@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import PageContainer from "@/components/layout/PageContainer";
@@ -76,10 +75,10 @@ const NewProjectPage = () => {
   };
 
   const handlePreviousStep = () => {
-    if (currentStep > 1) {
-      setCurrentStep(currentStep - 1);
+    if (currentStep === 1) {
+      navigate('/');
     } else {
-      navigate("/projects");
+      setCurrentStep(currentStep - 1);
     }
   };
 
@@ -92,7 +91,7 @@ const NewProjectPage = () => {
   return (
     <PageContainer>
       <div className="flex items-center mb-6">
-        <Button variant="ghost" size="icon" onClick={handlePreviousStep} className="mr-2">
+        <Button className="mr-2 hover:bg-accent hover:text-accent-foreground h-10 w-10" onClick={handlePreviousStep}>
           <ArrowLeft className="h-4 w-4" />
         </Button>
         <h1 className="text-xl font-semibold">New Project</h1>
