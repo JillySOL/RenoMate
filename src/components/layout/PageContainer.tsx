@@ -1,31 +1,30 @@
+import { cn } from "@/lib/utils";
+import BottomNav from "./BottomNav";
 
-import React from "react";
-
-interface PageContainerProps {
+interface PageContainerProps extends React.HTMLAttributes<HTMLDivElement> {
   children: React.ReactNode;
-  className?: string;
-  bg?: "white" | "beige" | "green" | "none";
+  hideNav?: boolean;
 }
 
-const PageContainer = ({ 
-  children, 
-  className = "",
-  bg = "beige"
+export const PageContainer = ({
+  children,
+  className,
+  hideNav = false,
+  ...props
 }: PageContainerProps) => {
-  const getBgColor = () => {
-    switch(bg) {
-      case "white": return "bg-white";
-      case "beige": return "bg-budget-light";
-      case "green": return "bg-budget-green-bg";
-      case "none": return "";
-      default: return "bg-budget-light";
-    }
-  };
-
   return (
-    <div className={`mobile-container ${getBgColor()} ${className}`}>
-      {children}
-    </div>
+    <>
+      <main
+        className={cn(
+          "container mx-auto px-4 pb-20",
+          className
+        )}
+        {...props}
+      >
+        {children}
+      </main>
+      {!hideNav && <BottomNav />}
+    </>
   );
 };
 

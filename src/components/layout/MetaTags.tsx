@@ -5,22 +5,40 @@ interface MetaTagsProps {
   description?: string;
   image?: string;
   url?: string;
+  keywords?: string[];
+  canonicalUrl?: string;
 }
+
+const DEFAULT_KEYWORDS = [
+  "home renovation",
+  "AI design",
+  "room makeover",
+  "interior design",
+  "budget renovation",
+  "home improvement",
+  "RenoMate",
+  "renovation ideas"
+];
 
 const MetaTags = ({
   title = "RenoMate - AI-Powered Room Design",
   description = "Transform your space with AI-powered room designs. Get personalized renovation ideas that fit your budget.",
   image = "/og-image.png",
-  url = "https://renomate.com"
+  url = "https://renomate.com",
+  keywords = DEFAULT_KEYWORDS,
+  canonicalUrl
 }: MetaTagsProps) => {
   const fullTitle = `${title} | RenoMate`;
   const fullDescription = `${description} Try our AI-powered room design tool for free!`;
-  const fullImageUrl = `${url}${image}`;
+  const fullImageUrl = new URL(image, url).toString();
+  const canonical = canonicalUrl || url;
 
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={fullDescription} />
+      <meta name="keywords" content={keywords.join(", ")} />
+      <link rel="canonical" href={canonical} />
       
       {/* Open Graph / Facebook */}
       <meta property="og:type" content="website" />
@@ -49,6 +67,11 @@ const MetaTags = ({
       <meta name="format-detection" content="telephone=no" />
       <meta name="mobile-web-app-capable" content="yes" />
       <meta name="application-name" content="RenoMate" />
+      
+      {/* Security */}
+      <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+      <meta http-equiv="X-Frame-Options" content="SAMEORIGIN" />
+      <meta name="referrer" content="strict-origin-when-cross-origin" />
       
       {/* Favicon */}
       <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
