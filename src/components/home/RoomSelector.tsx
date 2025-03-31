@@ -1,78 +1,47 @@
+import { PaintBucket, Hammer, Bath } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface RoomOption {
+  icon: JSX.Element;
   name: string;
   description: string;
-  image: string;
-  dimensions?: string;
-  style?: string;
 }
 
 const ROOM_OPTIONS: RoomOption[] = [
   {
-    name: "Bedroom",
-    description: "Transform your bedroom",
-    image: "/rooms/bedroom.jpg",
-    dimensions: "3 x 5m",
-    style: "Minimalism"
-  },
-  {
+    icon: <PaintBucket className="h-6 w-6" />,
     name: "Living Room",
-    description: "Upgrade your living space",
-    image: "/rooms/living-room.jpg",
-    dimensions: "4 x 6m",
-    style: "Modern"
+    description: "Transform your living space"
   },
   {
+    icon: <Hammer className="h-6 w-6" />,
     name: "Kitchen",
-    description: "Renovate your kitchen",
-    image: "/rooms/kitchen.jpg",
-    dimensions: "3 x 4m",
-    style: "Contemporary"
-  }
+    description: "Upgrade your kitchen"
+  },
+  {
+    icon: <Bath className="h-6 w-6" />,
+    name: "Bathroom",
+    description: "Renovate your bathroom"
+  },
 ];
 
 export const RoomSelector = () => {
   return (
-    <div role="region" aria-label="Room Selection" className="space-y-4">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">My Rooms</h2>
-        <Link to="/new-project" className="text-sm text-primary hover:underline">
-          View all
-        </Link>
-      </div>
-      
-      <div className="grid grid-cols-1 gap-4">
+    <div role="region" aria-label="Room Selection">
+      <h2 className="text-sm font-medium mb-4 text-gray-900">What room do you want to renovate?</h2>
+      <div className="grid grid-cols-3 sm:grid-cols-3 gap-4">
         {ROOM_OPTIONS.map((room) => (
           <Link 
             to="/new-project" 
             key={room.name} 
-            className="group relative overflow-hidden rounded-2xl bg-gray-100"
+            className="group flex flex-col items-center p-3 sm:p-5 bg-white rounded-xl shadow-sm border border-gray-100 text-center hover:shadow-md hover:border-green-200 transition-all"
             aria-label={`Select ${room.name} for renovation`}
           >
-            <div className="aspect-[4/3] w-full">
-              <img 
-                src={room.image} 
-                alt={room.name}
-                className="h-full w-full object-cover transition-transform group-hover:scale-105"
-              />
+            <div className="w-10 h-10 sm:w-14 sm:h-14 rounded-full bg-green-100 group-hover:bg-green-200 flex items-center justify-center mb-2 sm:mb-4 transition-colors">
+              {room.icon}
             </div>
-            
-            <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
-              <h3 className="font-medium">{room.name}</h3>
-              <div className="mt-1 flex gap-2 text-xs">
-                {room.dimensions && (
-                  <span className="rounded-full bg-white/20 px-2 py-1">
-                    {room.dimensions}
-                  </span>
-                )}
-                {room.style && (
-                  <span className="rounded-full bg-white/20 px-2 py-1">
-                    {room.style}
-                  </span>
-                )}
-              </div>
-            </div>
+            <span className="text-xs sm:text-sm font-medium text-gray-900">{room.name}</span>
+            <span className="text-xs text-gray-500 mt-1 hidden sm:block">{room.description}</span>
           </Link>
         ))}
       </div>
